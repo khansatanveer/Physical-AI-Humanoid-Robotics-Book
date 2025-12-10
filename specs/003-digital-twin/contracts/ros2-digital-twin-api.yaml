@@ -1,0 +1,133 @@
+# ROS 2 Digital Twin API Contracts
+
+# This contract defines the ROS 2 interfaces for the Digital Twin module
+# covering Gazebo physics simulation and Unity visualization integration
+
+---
+name: digital_twin_interfaces
+version: 1.0.0
+description: ROS 2 interfaces for Digital Twin simulation (Gazebo + Unity)
+
+services:
+  - name: /digital_twin/spawn_robot
+    type: example_interfaces/srv/SetBool
+    description: Service to spawn a robot model in the simulation environment
+    request:
+      data: bool
+      description: True to spawn, False to remove
+    response:
+      success: bool
+      message: string
+    examples:
+      - request: {data: true}
+        response: {success: true, message: "Robot spawned successfully"}
+
+  - name: /digital_twin/set_physics_params
+    type: example_interfaces/srv/Trigger
+    description: Service to configure physics parameters (gravity, damping, etc.)
+    request: {}
+    response:
+      success: bool
+      message: string
+    examples:
+      - request: {}
+        response: {success: true, message: "Physics parameters updated"}
+
+  - name: /digital_twin/reset_simulation
+    type: example_interfaces/srv/Trigger
+    description: Service to reset the simulation to initial state
+    request: {}
+    response:
+      success: bool
+      message: string
+    examples:
+      - request: {}
+        response: {success: true, message: "Simulation reset successfully"}
+
+actions:
+  - name: /digital_twin/move_robot
+    type: control_msgs/action/FollowJointTrajectory
+    description: Action to move robot joints to specified positions
+    goal:
+      trajectory: trajectory_msgs/JointTrajectory
+    feedback:
+      state: string
+      current_point: int
+    result:
+      success: bool
+      error_code: int
+      message: string
+
+topics:
+  - name: /digital_twin/robot_state
+    type: sensor_msgs/JointState
+    description: Current state of all robot joints
+    frequency: 50Hz
+    qos: reliable
+
+  - name: /digital_twin/sensor_data
+    type: sensor_msgs/PointCloud2
+    description: Combined sensor data output (LiDAR, depth camera, etc.)
+    frequency: 30Hz
+    qos: best_effort
+
+  - name: /digital_twin/unity_sync
+    type: geometry_msgs/TransformStamped
+    description: Synchronization data for Unity visualization
+    frequency: 60Hz
+    qos: reliable
+
+parameters:
+  - name: simulation_rate
+    type: int
+    default: 1000
+    description: Simulation update rate in Hz
+
+  - name: unity_integration_enabled
+    type: bool
+    default: false
+    description: Whether Unity visualization integration is enabled
+
+  - name: gravity_x
+    type: double
+    default: 0.0
+    description: Gravity acceleration in X direction (m/s^2)
+
+  - name: gravity_y
+    type: double
+    default: 0.0
+    description: Gravity acceleration in Y direction (m/s^2)
+
+  - name: gravity_z
+    type: double
+    default: -9.81
+    description: Gravity acceleration in Z direction (m/s^2)
+
+  - name: sensor_noise_level
+    type: double
+    default: 0.01
+    description: Base noise level for sensor simulation
+
+nodes:
+  - name: gazebo_simulation_node
+    description: Main node for Gazebo physics simulation
+    services:
+      - /digital_twin/spawn_robot
+      - /digital_twin/set_physics_params
+      - /digital_twin/reset_simulation
+    topics:
+      - /digital_twin/robot_state
+      - /digital_twin/sensor_data
+
+  - name: unity_bridge_node
+    description: Node for Unity visualization bridge
+    topics:
+      - /digital_twin/unity_sync
+      - /digital_twin/robot_state
+
+  - name: sensor_simulation_node
+    description: Node for sensor data generation
+    topics:
+      - /digital_twin/sensor_data
+    parameters:
+      - sensor_noise_level
