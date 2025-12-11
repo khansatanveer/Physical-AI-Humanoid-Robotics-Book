@@ -41,12 +41,12 @@ description: "Task list for Digital Twin (Gazebo & Unity) module implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 [P] Create basic ROS 2 package structure for digital twin examples in Physical-AI-Humanoid-Robotics-book/examples/ros2-integration-examples/package.xml and CMakeLists.txt
-- [ ] T007 Create common URDF model files for humanoid robot in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/models/humanoid/
-- [ ] T008 [P] Create basic Gazebo world file for physics testing in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/worlds/basic_physics.sdf
-- [ ] T009 Create placeholder Unity scene structure in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Scenes/
-- [ ] T010 [P] Create common configuration files for ROS 2, Gazebo, and Unity integration
-- [ ] T011 Set up documentation templates for chapter content
+- [X] T006 [P] Create basic ROS 2 package structure for digital twin examples in Physical-AI-Humanoid-Robotics-book/examples/ros2-integration-examples/package.xml and CMakeLists.txt
+- [X] T007 Create common URDF model files for humanoid robot in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/models/humanoid/
+- [X] T008 [P] Create basic Gazebo world file for physics testing in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/worlds/basic_physics.sdf
+- [X] T009 Create placeholder Unity scene structure in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Scenes/
+- [X] T010 [P] Create common configuration files for ROS 2, Gazebo, and Unity integration
+- [X] T011 Set up documentation templates for chapter content
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -60,15 +60,15 @@ description: "Task list for Digital Twin (Gazebo & Unity) module implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create chapter-1-gazebo-physics.md with introduction and learning objectives
-- [ ] T013 [P] [US1] Create basic humanoid robot URDF model in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/models/humanoid/basic_humanoid.urdf
-- [ ] T014 [US1] Create Gazebo world with physics properties in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/worlds/physics_world.sdf
-- [ ] T015 [US1] Create ROS 2 launch file for basic physics simulation in Physical-AI-Humanoid-Robotics-book/examples/ros2-integration-examples/launch/basic_physics.launch.py
-- [ ] T016 [US1] Implement gravity demonstration example with documentation in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/assets/
-- [ ] T017 [US1] Create collision detection example with documentation
-- [ ] T018 [US1] Write exercises for physics fundamentals in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/chapter-1-exercises.md
-- [ ] T019 [US1] Create diagrams and visual aids for physics concepts
-- [ ] T020 [US1] Validate physics simulation meets performance targets (<50ms updates)
+- [X] T012 [P] [US1] Create chapter-1-gazebo-physics.md with introduction and learning objectives
+- [X] T013 [P] [US1] Create basic humanoid robot URDF model in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/models/humanoid/basic_humanoid.urdf
+- [X] T014 [US1] Create Gazebo world with physics properties in Physical-AI-Humanoid-Robotics-book/examples/gazebo-examples/worlds/physics_world.sdf
+- [X] T015 [US1] Create ROS 2 launch file for basic physics simulation in Physical-AI-Humanoid-Robotics-book/examples/ros2-integration-examples/launch/basic_physics.launch.py
+- [X] T016 [US1] Implement gravity demonstration example with documentation in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/assets/
+- [X] T017 [US1] Create collision detection example with documentation
+- [X] T018 [US1] Write exercises for physics fundamentals in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/chapter-1-exercises.md
+- [X] T019 [US1] Create diagrams and visual aids for physics concepts
+- [X] T020 [US1] Validate physics simulation meets performance targets (<50ms updates)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -82,15 +82,15 @@ description: "Task list for Digital Twin (Gazebo & Unity) module implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T021 [P] [US2] Create chapter-2-unity-visualization.md with introduction and learning objectives
-- [ ] T022 [P] [US2] Create basic Unity scene structure for digital twin visualization in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Scenes/BasicVisualization.unity
-- [ ] T023 [US2] Create 3D environment assets and models in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Assets/
-- [ ] T024 [US2] Implement lighting and texture systems for realistic visualization
-- [ ] T025 [US2] Create humanoid robot visualization model that matches Gazebo physics model
-- [ ] T026 [US2] Implement interactive elements and controls for the Unity environment
-- [ ] T027 [US2] Write exercises for Unity environment building in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/chapter-2-exercises.md
-- [ ] T028 [US2] Create diagrams showing Unity scene structure and components
-- [ ] T029 [US2] Validate Unity rendering meets performance targets (<100ms response time)
+- [X] T021 [P] [US2] Create chapter-2-unity-visualization.md with introduction and learning objectives
+- [X] T022 [P] [US2] Create basic Unity scene structure for digital twin visualization in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Scenes/BasicVisualization.unity
+- [X] T023 [US2] Create 3D environment assets and models in Physical-AI-Humanoid-Robotics-book/examples/unity-examples/Assets/
+- [X] T024 [US2] Implement lighting and texture systems for realistic visualization
+- [X] T025 [US2] Create humanoid robot visualization model that matches Gazebo physics model
+- [X] T026 [US2] Implement interactive elements and controls for the Unity environment
+- [X] T027 [US2] Write exercises for Unity environment building in Physical-AI-Humanoid-Robotics-book/docs/module-3-digital-twin/chapter-2-exercises.md
+- [X] T028 [US2] Create diagrams showing Unity scene structure and components
+- [X] T029 [US2] Validate Unity rendering meets performance targets (<100ms response time)
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
