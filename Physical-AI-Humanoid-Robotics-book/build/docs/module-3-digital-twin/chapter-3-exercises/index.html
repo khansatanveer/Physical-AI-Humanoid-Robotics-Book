@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-module-3-digital-twin/chapter-3-exercises" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Chapter 3: Sensor Simulation and Integration - Exercises | Physical AI Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/chapter-3-exercises"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="keywords" content="physical ai, humanoid robotics, ros2, simulation, vla models, robotics education, ai robotics, embodied ai, machine learning, artificial intelligence"><meta data-rh="true" name="og:title" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="og:description" content="A comprehensive educational book about Physical AI and Humanoid Robotics"><meta data-rh="true" name="og:type" content="website"><meta data-rh="true" name="og:url" content="https://physical-ai-humanoid-robotics-book.github.io"><meta data-rh="true" name="og:site_name" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="twitter:title" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="twitter:description" content="Educational resource for Physical AI and Humanoid Robotics"><meta data-rh="true" name="docusaurus:version" content="current"><meta data-rh="true" name="docusaurus:section" content="education"><meta data-rh="true" name="docusaurus:category" content="robotics,ai,education"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Chapter 3: Sensor Simulation and Integration - Exercises | Physical AI Humanoid Robotics"><meta data-rh="true" name="description" content="Exercise 3.1: LiDAR Sensor Implementation"><meta data-rh="true" property="og:description" content="Exercise 3.1: LiDAR Sensor Implementation"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/chapter-3-exercises"><link data-rh="true" rel="alternate" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/chapter-3-exercises" hreflang="en"><link data-rh="true" rel="alternate" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/chapter-3-exercises" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Chapter 3: Sensor Simulation and Integration - Exercises","item":"https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/chapter-3-exercises"}]}</script><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Physical AI Humanoid Robotics RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Physical AI Humanoid Robotics Atom Feed"><link rel="stylesheet" href="/assets/css/styles.7c1fdf88.css">
+<script src="/assets/js/runtime~main.3acc40a9.js" defer="defer"></script>
+<script src="/assets/js/main.539b81e3.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="Physical AI Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="Physical AI Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI Humanoid Robotics</b></a><a class="navbar__link navbar__item navbar__link" href="/docs/intro">Book</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-book" target="_blank" rel="noopener noreferrer" class="navbar__link navbar__item navbar__link">GitHub</a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/intro"><span title="Introduction" class="categoryLinkLabel_W154">Introduction</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/ros2/nodes-topics"><span title="ROS 2" class="categoryLinkLabel_W154">ROS 2</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/fundamentals/kinematics"><span title="Fundamentals" class="categoryLinkLabel_W154">Fundamentals</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/simulation/gazebo"><span title="Simulation" class="categoryLinkLabel_W154">Simulation</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/docs/module-3-digital-twin/chapter-1-gazebo-physics"><span title="Digital Twin (Gazebo &amp; Unity)" class="categoryLinkLabel_W154">Digital Twin (Gazebo &amp; Unity)</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/chapter-1-gazebo-physics"><span title="Chapter 1: Gazebo Physics Simulation Fundamentals" class="linkLabel_WmDU">Chapter 1: Gazebo Physics Simulation Fundamentals</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/chapter-1-exercises"><span title="Chapter 1: Physics Fundamentals Exercises" class="linkLabel_WmDU">Chapter 1: Physics Fundamentals Exercises</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/chapter-2-unity-visualization"><span title="Chapter 2: Unity Environment Building and Visualization" class="linkLabel_WmDU">Chapter 2: Unity Environment Building and Visualization</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/chapter-2-exercises"><span title="Chapter 2: Unity Environment Building and Visualization - Exercises" class="linkLabel_WmDU">Chapter 2: Unity Environment Building and Visualization - Exercises</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/chapter-3-sensor-simulation"><span title="Chapter 3: Sensor Simulation and Integration" class="linkLabel_WmDU">Chapter 3: Sensor Simulation and Integration</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/docs/module-3-digital-twin/chapter-3-exercises"><span title="Chapter 3: Sensor Simulation and Integration - Exercises" class="linkLabel_WmDU">Chapter 3: Sensor Simulation and Integration - Exercises</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/docs/module-3-digital-twin/workflow-sketch"><span title="Gazebo-Unity Integration Workflow" class="linkLabel_WmDU">Gazebo-Unity Integration Workflow</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/vla/introduction"><span title="Vision-Language-Action (VLA) Models" class="categoryLinkLabel_W154">Vision-Language-Action (VLA) Models</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/projects/first-humanoid"><span title="Projects" class="categoryLinkLabel_W154">Projects</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/docs/advanced/future-directions"><span title="Advanced Topics" class="categoryLinkLabel_W154">Advanced Topics</span></a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Digital Twin (Gazebo &amp; Unity)</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Chapter 3: Sensor Simulation and Integration - Exercises</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Chapter 3: Sensor Simulation and Integration - Exercises</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-31-lidar-sensor-implementation">Exercise 3.1: LiDAR Sensor Implementation<a href="#exercise-31-lidar-sensor-implementation" class="hash-link" aria-label="Direct link to Exercise 3.1: LiDAR Sensor Implementation" title="Direct link to Exercise 3.1: LiDAR Sensor Implementation" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective">Objective<a href="#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Implement a LiDAR sensor on your humanoid robot model and verify its functionality in Gazebo simulation.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks">Tasks<a href="#tasks" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Add a LiDAR sensor to your robot&#x27;s URDF model</li>
+<li class="">Configure the sensor with appropriate parameters for your application</li>
+<li class="">Test that the sensor publishes LaserScan messages in ROS</li>
+<li class="">Visualize the LiDAR data to confirm proper operation</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps">Implementation Steps<a href="#implementation-steps" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Define a new link for the LiDAR sensor in your URDF</li>
+<li class="">Add a fixed joint connecting the LiDAR to an appropriate link (e.g., head or torso)</li>
+<li class="">Configure the Gazebo plugin with realistic parameters:<!-- -->
+<ul>
+<li class="">Set update rate to 10Hz</li>
+<li class="">Configure 360-degree horizontal scan with 1-degree resolution</li>
+<li class="">Set range from 0.1m to 30m</li>
+</ul>
+</li>
+<li class="">Launch the simulation and verify sensor data publication</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria">Validation Criteria<a href="#validation-criteria" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">LiDAR sensor appears in the Gazebo model</li>
+<li class="">LaserScan messages are published at the configured rate</li>
+<li class="">Range values are within expected parameters</li>
+<li class="">Sensor data is free of artifacts or invalid readings</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements">Submission Requirements<a href="#submission-requirements" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">URDF code snippet showing the LiDAR sensor definition</li>
+<li class="">Console output showing active LiDAR topic</li>
+<li class="">Screenshot of LiDAR visualization in Gazebo (if available)</li>
+<li class="">Description of how you validated the sensor&#x27;s proper operation</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-32-depth-camera-integration">Exercise 3.2: Depth Camera Integration<a href="#exercise-32-depth-camera-integration" class="hash-link" aria-label="Direct link to Exercise 3.2: Depth Camera Integration" title="Direct link to Exercise 3.2: Depth Camera Integration" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective-1">Objective<a href="#objective-1" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Add a depth camera to your robot and configure it to publish both color and depth images.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks-1">Tasks<a href="#tasks-1" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Add a depth camera sensor to your robot&#x27;s URDF model</li>
+<li class="">Configure camera parameters for your application</li>
+<li class="">Verify that both color and depth images are published</li>
+<li class="">Process the depth images to extract meaningful information</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps-1">Implementation Steps<a href="#implementation-steps-1" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Create a camera link and attach it to your robot (e.g., head)</li>
+<li class="">Configure the depth camera plugin with:<!-- -->
+<ul>
+<li class="">640x480 resolution</li>
+<li class="">60-degree horizontal field of view</li>
+<li class="">30Hz update rate</li>
+</ul>
+</li>
+<li class="">Launch the simulation and monitor both image topics</li>
+<li class="">Write a simple ROS node to process the depth images</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria-1">Validation Criteria<a href="#validation-criteria-1" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">Camera publishes color images (sensor_msgs/Image)</li>
+<li class="">Camera publishes depth images (sensor_msgs/Image with 32FC1 encoding)</li>
+<li class="">Depth values are in meters and within expected range</li>
+<li class="">Images are free of distortion or artifacts</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements-1">Submission Requirements<a href="#submission-requirements-1" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">URDF code snippet for the depth camera</li>
+<li class="">Output showing both image topics are active</li>
+<li class="">Python code for a simple depth processing node</li>
+<li class="">Sample processed depth data with explanation</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-33-imu-sensor-configuration">Exercise 3.3: IMU Sensor Configuration<a href="#exercise-33-imu-sensor-configuration" class="hash-link" aria-label="Direct link to Exercise 3.3: IMU Sensor Configuration" title="Direct link to Exercise 3.3: IMU Sensor Configuration" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective-2">Objective<a href="#objective-2" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Implement an IMU sensor on your robot to provide orientation and acceleration data.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks-2">Tasks<a href="#tasks-2" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Add an IMU sensor to your robot&#x27;s URDF model</li>
+<li class="">Configure realistic noise parameters</li>
+<li class="">Verify IMU data publication and quality</li>
+<li class="">Process IMU data to extract orientation information</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps-2">Implementation Steps<a href="#implementation-steps-2" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Define an IMU link in your robot&#x27;s torso (for best motion tracking)</li>
+<li class="">Configure the IMU plugin with realistic noise values:<!-- -->
+<ul>
+<li class="">Angular velocity noise: 2e-4 rad/s stddev</li>
+<li class="">Linear acceleration noise: 1.7e-2 m/s² stddev</li>
+</ul>
+</li>
+<li class="">Set update rate to 100Hz for responsive orientation tracking</li>
+<li class="">Create a ROS node to process and validate IMU data</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria-2">Validation Criteria<a href="#validation-criteria-2" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">IMU publishes sensor_msgs/Imu messages at 100Hz</li>
+<li class="">Orientation quaternion represents valid rotation</li>
+<li class="">Angular velocity and linear acceleration are reasonable</li>
+<li class="">Noise parameters produce realistic sensor behavior</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements-2">Submission Requirements<a href="#submission-requirements-2" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">URDF code snippet for the IMU sensor</li>
+<li class="">Sample IMU messages showing all fields</li>
+<li class="">Python code for IMU processing and validation</li>
+<li class="">Analysis of noise characteristics in the sensor data</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-34-sensor-data-processing-pipeline">Exercise 3.4: Sensor Data Processing Pipeline<a href="#exercise-34-sensor-data-processing-pipeline" class="hash-link" aria-label="Direct link to Exercise 3.4: Sensor Data Processing Pipeline" title="Direct link to Exercise 3.4: Sensor Data Processing Pipeline" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective-3">Objective<a href="#objective-3" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Create a comprehensive sensor processing pipeline that handles data from all sensor types.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks-3">Tasks<a href="#tasks-3" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Implement a ROS node that subscribes to all sensor topics</li>
+<li class="">Process and validate data from each sensor type</li>
+<li class="">Implement basic sensor fusion techniques</li>
+<li class="">Create visualization for processed sensor data</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps-3">Implementation Steps<a href="#implementation-steps-3" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Create a ROS node with subscribers for:<!-- -->
+<ul>
+<li class="">/basic_humanoid/scan (LiDAR)</li>
+<li class="">/basic_humanoid/camera/image_raw (Color camera)</li>
+<li class="">/basic_humanoid/camera/depth/image_raw (Depth camera)</li>
+<li class="">/basic_humanoid/imu (IMU)</li>
+</ul>
+</li>
+<li class="">Implement data validation and preprocessing</li>
+<li class="">Create simple obstacle detection using LiDAR data</li>
+<li class="">Implement basic sensor fusion for position estimation</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria-3">Validation Criteria<a href="#validation-criteria-3" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">Node processes all sensor data without errors</li>
+<li class="">Processing maintains real-time performance</li>
+<li class="">Obstacle detection works with LiDAR data</li>
+<li class="">Sensor fusion improves position estimation accuracy</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements-3">Submission Requirements<a href="#submission-requirements-3" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">Complete ROS node implementation</li>
+<li class="">Performance metrics (processing time, CPU usage)</li>
+<li class="">Test results showing obstacle detection</li>
+<li class="">Comparison of fused vs individual sensor data</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-35-unity-sensor-visualization">Exercise 3.5: Unity Sensor Visualization<a href="#exercise-35-unity-sensor-visualization" class="hash-link" aria-label="Direct link to Exercise 3.5: Unity Sensor Visualization" title="Direct link to Exercise 3.5: Unity Sensor Visualization" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective-4">Objective<a href="#objective-4" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Implement visualization of sensor data in the Unity digital twin environment.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks-4">Tasks<a href="#tasks-4" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Create Unity components to visualize LiDAR point clouds</li>
+<li class="">Implement depth camera point cloud visualization</li>
+<li class="">Visualize IMU orientation in the Unity scene</li>
+<li class="">Integrate sensor visualization with the digital twin</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps-4">Implementation Steps<a href="#implementation-steps-4" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Create a SensorVisualization script in Unity</li>
+<li class="">Implement LiDAR point visualization using the LaserScan data</li>
+<li class="">Add depth camera point cloud visualization</li>
+<li class="">Create IMU orientation indicator</li>
+<li class="">Connect Unity visualization to ROS sensor data</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria-4">Validation Criteria<a href="#validation-criteria-4" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">LiDAR points appear correctly in Unity scene</li>
+<li class="">Depth camera data visualizes as 3D point cloud</li>
+<li class="">IMU orientation indicator shows correct rotation</li>
+<li class="">Sensor visualization updates in real-time</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements-4">Submission Requirements<a href="#submission-requirements-4" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">Unity C# script for sensor visualization</li>
+<li class="">Screenshot showing sensor visualizations in Unity</li>
+<li class="">Description of how sensor data is transmitted to Unity</li>
+<li class="">Performance metrics for visualization system</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-36-multi-sensor-integration-challenge">Exercise 3.6: Multi-Sensor Integration Challenge<a href="#exercise-36-multi-sensor-integration-challenge" class="hash-link" aria-label="Direct link to Exercise 3.6: Multi-Sensor Integration Challenge" title="Direct link to Exercise 3.6: Multi-Sensor Integration Challenge" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective-5">Objective<a href="#objective-5" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h3>
+<p>Integrate all sensor systems into a cohesive perception system for the digital twin.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasks-5">Tasks<a href="#tasks-5" class="hash-link" aria-label="Direct link to Tasks" title="Direct link to Tasks" translate="no">​</a></h3>
+<ol>
+<li class="">Combine data from all three sensor types</li>
+<li class="">Implement a sensor fusion algorithm</li>
+<li class="">Create a unified perception output</li>
+<li class="">Validate the integrated system performance</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps-5">Implementation Steps<a href="#implementation-steps-5" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h3>
+<ol>
+<li class="">Extend your ROS sensor processing node to combine all sensor data</li>
+<li class="">Implement a simple sensor fusion approach (e.g., weighted average or complementary filter)</li>
+<li class="">Create a unified output topic with fused sensor state</li>
+<li class="">Test the integrated system in various simulated environments</li>
+<li class="">Validate that the fused data is more accurate than individual sensors</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria-5">Validation Criteria<a href="#validation-criteria-5" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h3>
+<ul>
+<li class="">All sensors contribute to the fused output</li>
+<li class="">Fused data is more robust than individual sensors</li>
+<li class="">System maintains real-time performance with all sensors active</li>
+<li class="">Integration handles sensor failures gracefully</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements-5">Submission Requirements<a href="#submission-requirements-5" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h3>
+<ul>
+<li class="">Complete multi-sensor fusion implementation</li>
+<li class="">Comparison of fused vs individual sensor performance</li>
+<li class="">Test results in different simulated scenarios</li>
+<li class="">Analysis of fusion algorithm effectiveness</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="assessment-rubric">Assessment Rubric<a href="#assessment-rubric" class="hash-link" aria-label="Direct link to Assessment Rubric" title="Direct link to Assessment Rubric" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="technical-implementation-50">Technical Implementation (50%)<a href="#technical-implementation-50" class="hash-link" aria-label="Direct link to Technical Implementation (50%)" title="Direct link to Technical Implementation (50%)" translate="no">​</a></h3>
+<ul>
+<li class="">Correct implementation of all sensor types</li>
+<li class="">Proper ROS topic configuration and message handling</li>
+<li class="">Accurate sensor modeling with realistic parameters</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="data-processing-25">Data Processing (25%)<a href="#data-processing-25" class="hash-link" aria-label="Direct link to Data Processing (25%)" title="Direct link to Data Processing (25%)" translate="no">​</a></h3>
+<ul>
+<li class="">Effective processing and validation of sensor data</li>
+<li class="">Implementation of sensor fusion techniques</li>
+<li class="">Real-time performance maintenance</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integration-and-validation-25">Integration and Validation (25%)<a href="#integration-and-validation-25" class="hash-link" aria-label="Direct link to Integration and Validation (25%)" title="Direct link to Integration and Validation (25%)" translate="no">​</a></h3>
+<ul>
+<li class="">Successful integration of all sensor systems</li>
+<li class="">Proper validation of sensor functionality</li>
+<li class="">Comprehensive testing and documentation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="additional-challenge-bonus-10">Additional Challenge (Bonus 10%)<a href="#additional-challenge-bonus-10" class="hash-link" aria-label="Direct link to Additional Challenge (Bonus 10%)" title="Direct link to Additional Challenge (Bonus 10%)" translate="no">​</a></h3>
+<p>Implement advanced features such as:</p>
+<ul>
+<li class="">SLAM (Simultaneous Localization and Mapping) using LiDAR data</li>
+<li class="">Object detection and classification using camera data</li>
+<li class="">Predictive sensor fusion using Kalman filters</li>
+<li class="">Advanced visualization techniques for sensor data</li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/physical-ai-humanoid-robotics-book/physical-ai-humanoid-robotics-book/tree/main/Physical-AI-Humanoid-Robotics-book/docs/docs/module-3-digital-twin/chapter-3-exercises.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/module-3-digital-twin/chapter-3-sensor-simulation"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Chapter 3: Sensor Simulation and Integration</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/module-3-digital-twin/workflow-sketch"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Gazebo-Unity Integration Workflow</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#exercise-31-lidar-sensor-implementation" class="table-of-contents__link toc-highlight">Exercise 3.1: LiDAR Sensor Implementation</a><ul><li><a href="#objective" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#exercise-32-depth-camera-integration" class="table-of-contents__link toc-highlight">Exercise 3.2: Depth Camera Integration</a><ul><li><a href="#objective-1" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks-1" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps-1" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria-1" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements-1" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#exercise-33-imu-sensor-configuration" class="table-of-contents__link toc-highlight">Exercise 3.3: IMU Sensor Configuration</a><ul><li><a href="#objective-2" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks-2" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps-2" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria-2" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements-2" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#exercise-34-sensor-data-processing-pipeline" class="table-of-contents__link toc-highlight">Exercise 3.4: Sensor Data Processing Pipeline</a><ul><li><a href="#objective-3" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks-3" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps-3" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria-3" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements-3" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#exercise-35-unity-sensor-visualization" class="table-of-contents__link toc-highlight">Exercise 3.5: Unity Sensor Visualization</a><ul><li><a href="#objective-4" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks-4" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps-4" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria-4" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements-4" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#exercise-36-multi-sensor-integration-challenge" class="table-of-contents__link toc-highlight">Exercise 3.6: Multi-Sensor Integration Challenge</a><ul><li><a href="#objective-5" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#tasks-5" class="table-of-contents__link toc-highlight">Tasks</a></li><li><a href="#implementation-steps-5" class="table-of-contents__link toc-highlight">Implementation Steps</a></li><li><a href="#validation-criteria-5" class="table-of-contents__link toc-highlight">Validation Criteria</a></li><li><a href="#submission-requirements-5" class="table-of-contents__link toc-highlight">Submission Requirements</a></li></ul></li><li><a href="#assessment-rubric" class="table-of-contents__link toc-highlight">Assessment Rubric</a><ul><li><a href="#technical-implementation-50" class="table-of-contents__link toc-highlight">Technical Implementation (50%)</a></li><li><a href="#data-processing-25" class="table-of-contents__link toc-highlight">Data Processing (25%)</a></li><li><a href="#integration-and-validation-25" class="table-of-contents__link toc-highlight">Integration and Validation (25%)</a></li><li><a href="#additional-challenge-bonus-10" class="table-of-contents__link toc-highlight">Additional Challenge (Bonus 10%)</a></li></ul></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Book Sections</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/fundamentals/kinematics">Fundamentals</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/ros2/architecture">ROS 2</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/simulation/gazebo">Simulation</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/module-3-digital-twin/chapter-1-gazebo-physics">Digital Twin</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/vla/introduction">VLA Models</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/physical-ai-humanoid-robotics-book/physical-ai-humanoid-robotics-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docusaurus<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-bookk" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Physical AI Humanoid Robotics Book. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

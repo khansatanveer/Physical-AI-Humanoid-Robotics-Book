@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-module-3-digital-twin/capstone-exercise" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">Capstone Exercise: Complete Digital Twin Implementation | Physical AI Humanoid Robotics</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" property="og:image" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/capstone-exercise"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="keywords" content="physical ai, humanoid robotics, ros2, simulation, vla models, robotics education, ai robotics, embodied ai, machine learning, artificial intelligence"><meta data-rh="true" name="og:title" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="og:description" content="A comprehensive educational book about Physical AI and Humanoid Robotics"><meta data-rh="true" name="og:type" content="website"><meta data-rh="true" name="og:url" content="https://physical-ai-humanoid-robotics-book.github.io"><meta data-rh="true" name="og:site_name" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" name="twitter:title" content="Physical AI Humanoid Robotics Book"><meta data-rh="true" name="twitter:description" content="Educational resource for Physical AI and Humanoid Robotics"><meta data-rh="true" name="docusaurus:version" content="current"><meta data-rh="true" name="docusaurus:section" content="education"><meta data-rh="true" name="docusaurus:category" content="robotics,ai,education"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Capstone Exercise: Complete Digital Twin Implementation | Physical AI Humanoid Robotics"><meta data-rh="true" name="description" content="Objective"><meta data-rh="true" property="og:description" content="Objective"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/capstone-exercise"><link data-rh="true" rel="alternate" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/capstone-exercise" hreflang="en"><link data-rh="true" rel="alternate" href="https://physical-ai-humanoid-robotics-book-gamma.vercel.app/docs/module-3-digital-twin/capstone-exercise" hreflang="x-default"><link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="Physical AI Humanoid Robotics RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Physical AI Humanoid Robotics Atom Feed"><link rel="stylesheet" href="/assets/css/styles.7c1fdf88.css">
+<script src="/assets/js/runtime~main.3acc40a9.js" defer="defer"></script>
+<script src="/assets/js/main.539b81e3.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo.svg" alt="Physical AI Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/img/logo.svg" alt="Physical AI Humanoid Robotics Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Physical AI Humanoid Robotics</b></a><a class="navbar__link navbar__item navbar__link" href="/docs/intro">Book</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-book" target="_blank" rel="noopener noreferrer" class="navbar__link navbar__item navbar__link">GitHub</a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><main class="docMainContainer_TBSr docMainContainerEnhanced_lQrH"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Capstone Exercise: Complete Digital Twin Implementation</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="objective">Objective<a href="#objective" class="hash-link" aria-label="Direct link to Objective" title="Direct link to Objective" translate="no">​</a></h2>
+<p>Integrate all components of the digital twin system (Gazebo physics, Unity visualization, sensor simulation) to create a complete, functional digital twin that can operate in real-time with proper fallback mechanisms.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="background">Background<a href="#background" class="hash-link" aria-label="Direct link to Background" title="Direct link to Background" translate="no">​</a></h2>
+<p>You have learned to implement individual components of a digital twin system:</p>
+<ul>
+<li class="">Physics simulation in Gazebo</li>
+<li class="">3D visualization in Unity</li>
+<li class="">Sensor simulation and processing</li>
+<li class="">System integration and communication</li>
+</ul>
+<p>Now you will combine all these elements into a cohesive system that demonstrates the complete digital twin concept.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="exercise-components">Exercise Components<a href="#exercise-components" class="hash-link" aria-label="Direct link to Exercise Components" title="Direct link to Exercise Components" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-1-system-integration-40-points">Part 1: System Integration (40 points)<a href="#part-1-system-integration-40-points" class="hash-link" aria-label="Direct link to Part 1: System Integration (40 points)" title="Direct link to Part 1: System Integration (40 points)" translate="no">​</a></h3>
+<p>Integrate the following components into a single operational system:</p>
+<ol>
+<li class="">
+<p><strong>Physics Simulation</strong></p>
+<ul>
+<li class="">Load the humanoid robot model in Gazebo</li>
+<li class="">Configure physics properties (mass, friction, etc.)</li>
+<li class="">Implement joint control and dynamics</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Sensor Simulation</strong></p>
+<ul>
+<li class="">Add LiDAR, depth camera, and IMU sensors to the robot</li>
+<li class="">Configure realistic sensor parameters</li>
+<li class="">Validate sensor data quality</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Unity Visualization</strong></p>
+<ul>
+<li class="">Create Unity scene that mirrors the Gazebo environment</li>
+<li class="">Implement real-time synchronization of robot state</li>
+<li class="">Visualize sensor data in Unity</li>
+</ul>
+</li>
+<li class="">
+<p><strong>ROS 2 Communication</strong></p>
+<ul>
+<li class="">Establish communication between all components</li>
+<li class="">Implement the Gazebo-Unity bridge</li>
+<li class="">Ensure proper message synchronization</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-2-advanced-features-30-points">Part 2: Advanced Features (30 points)<a href="#part-2-advanced-features-30-points" class="hash-link" aria-label="Direct link to Part 2: Advanced Features (30 points)" title="Direct link to Part 2: Advanced Features (30 points)" translate="no">​</a></h3>
+<p>Implement the following advanced features:</p>
+<ol>
+<li class="">
+<p><strong>Sensor Fusion</strong></p>
+<ul>
+<li class="">Combine data from multiple sensors</li>
+<li class="">Implement a basic localization algorithm</li>
+<li class="">Validate fused sensor accuracy</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Real-time Control</strong></p>
+<ul>
+<li class="">Implement teleoperation from Unity</li>
+<li class="">Add autonomous navigation capabilities</li>
+<li class="">Validate control response times</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Performance Monitoring</strong></p>
+<ul>
+<li class="">Monitor system performance metrics</li>
+<li class="">Identify bottlenecks and optimize</li>
+<li class="">Document performance characteristics</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-3-fallback-and-recovery-20-points">Part 3: Fallback and Recovery (20 points)<a href="#part-3-fallback-and-recovery-20-points" class="hash-link" aria-label="Direct link to Part 3: Fallback and Recovery (20 points)" title="Direct link to Part 3: Fallback and Recovery (20 points)" translate="no">​</a></h3>
+<p>Test and validate the system&#x27;s resilience:</p>
+<ol>
+<li class="">
+<p><strong>Failure Simulation</strong></p>
+<ul>
+<li class="">Simulate various failure conditions</li>
+<li class="">Test fallback mechanism activation</li>
+<li class="">Validate graceful degradation</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Recovery Testing</strong></p>
+<ul>
+<li class="">Test automatic recovery procedures</li>
+<li class="">Validate state consistency after recovery</li>
+<li class="">Document recovery times and success rates</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-4-documentation-and-validation-10-points">Part 4: Documentation and Validation (10 points)<a href="#part-4-documentation-and-validation-10-points" class="hash-link" aria-label="Direct link to Part 4: Documentation and Validation (10 points)" title="Direct link to Part 4: Documentation and Validation (10 points)" translate="no">​</a></h3>
+<ul>
+<li class="">Document the complete system architecture</li>
+<li class="">Validate that all performance targets are met</li>
+<li class="">Create a user guide for the digital twin system</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="implementation-steps">Implementation Steps<a href="#implementation-steps" class="hash-link" aria-label="Direct link to Implementation Steps" title="Direct link to Implementation Steps" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-1-environment-setup">Step 1: Environment Setup<a href="#step-1-environment-setup" class="hash-link" aria-label="Direct link to Step 1: Environment Setup" title="Direct link to Step 1: Environment Setup" translate="no">​</a></h3>
+<ol>
+<li class="">Launch Gazebo with the complete robot model</li>
+<li class="">Start the ROS 2 bridge node</li>
+<li class="">Launch Unity visualization application</li>
+<li class="">Verify basic connectivity between components</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-2-data-synchronization">Step 2: Data Synchronization<a href="#step-2-data-synchronization" class="hash-link" aria-label="Direct link to Step 2: Data Synchronization" title="Direct link to Step 2: Data Synchronization" translate="no">​</a></h3>
+<ol>
+<li class="">Implement joint state synchronization between Gazebo and Unity</li>
+<li class="">Verify sensor data transmission to Unity</li>
+<li class="">Test command transmission from Unity to Gazebo</li>
+<li class="">Validate timing and latency requirements</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-3-advanced-integration">Step 3: Advanced Integration<a href="#step-3-advanced-integration" class="hash-link" aria-label="Direct link to Step 3: Advanced Integration" title="Direct link to Step 3: Advanced Integration" translate="no">​</a></h3>
+<ol>
+<li class="">Integrate sensor fusion algorithms</li>
+<li class="">Implement control algorithms</li>
+<li class="">Test system response under various conditions</li>
+<li class="">Optimize performance as needed</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-4-validation-and-testing">Step 4: Validation and Testing<a href="#step-4-validation-and-testing" class="hash-link" aria-label="Direct link to Step 4: Validation and Testing" title="Direct link to Step 4: Validation and Testing" translate="no">​</a></h3>
+<ol>
+<li class="">Run comprehensive system tests</li>
+<li class="">Validate all performance requirements</li>
+<li class="">Test fallback and recovery procedures</li>
+<li class="">Document results and issues</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="validation-criteria">Validation Criteria<a href="#validation-criteria" class="hash-link" aria-label="Direct link to Validation Criteria" title="Direct link to Validation Criteria" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="technical-requirements">Technical Requirements<a href="#technical-requirements" class="hash-link" aria-label="Direct link to Technical Requirements" title="Direct link to Technical Requirements" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Robot state synchronizes between Gazebo and Unity in real-time (<code>&lt;100ms</code> delay)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->All sensors publish data at configured rates (LiDAR: 10Hz, Camera: 30Hz, IMU: 100Hz)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Control commands execute with minimal latency (<code>&lt;50ms</code>)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->System maintains 30+ FPS in Unity during normal operation</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Fallback mechanisms activate appropriately when components fail</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Recovery procedures restore normal operation successfully</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="performance-targets">Performance Targets<a href="#performance-targets" class="hash-link" aria-label="Direct link to Performance Targets" title="Direct link to Performance Targets" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Physics simulation maintains real-time factor &gt; 0.9</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Sensor processing uses <code>&lt; 20%</code> of available CPU</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Network communication maintains <code>&lt; 50ms</code> latency</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->System operates continuously for &gt; 1 hour without degradation</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="quality-assurance">Quality Assurance<a href="#quality-assurance" class="hash-link" aria-label="Direct link to Quality Assurance" title="Direct link to Quality Assurance" translate="no">​</a></h3>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->All components integrate without conflicts</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Error handling is comprehensive and appropriate</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->System is robust to network interruptions</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Data integrity is maintained during operation</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="deliverables">Deliverables<a href="#deliverables" class="hash-link" aria-label="Direct link to Deliverables" title="Direct link to Deliverables" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="required">Required<a href="#required" class="hash-link" aria-label="Direct link to Required" title="Direct link to Required" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Complete System Implementation</strong></p>
+<ul>
+<li class="">Working launch file that starts all components</li>
+<li class="">Configured robot model with all sensors</li>
+<li class="">Unity scene with real-time visualization</li>
+<li class="">ROS 2 bridge for communication</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Test Results</strong></p>
+<ul>
+<li class="">Performance benchmark results</li>
+<li class="">Fallback/recovery test results</li>
+<li class="">System validation report</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Documentation</strong></p>
+<ul>
+<li class="">System architecture diagram</li>
+<li class="">Configuration guide</li>
+<li class="">Troubleshooting guide</li>
+</ul>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="optional-bonus-up-to-15-points">Optional (Bonus: up to 15 points)<a href="#optional-bonus-up-to-15-points" class="hash-link" aria-label="Direct link to Optional (Bonus: up to 15 points)" title="Direct link to Optional (Bonus: up to 15 points)" translate="no">​</a></h3>
+<ul>
+<li class="">Implement advanced features (SLAM, AI-based control, etc.)</li>
+<li class="">Create additional visualization capabilities</li>
+<li class="">Add support for multiple robots</li>
+<li class="">Implement cloud-based digital twin features</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="submission-requirements">Submission Requirements<a href="#submission-requirements" class="hash-link" aria-label="Direct link to Submission Requirements" title="Direct link to Submission Requirements" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="code-submission">Code Submission<a href="#code-submission" class="hash-link" aria-label="Direct link to Code Submission" title="Direct link to Code Submission" translate="no">​</a></h3>
+<ul>
+<li class="">Complete launch file for the integrated system</li>
+<li class="">Updated configuration files</li>
+<li class="">Any new nodes or scripts created</li>
+<li class="">Unity scene files (or build instructions)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="report-submission">Report Submission<a href="#report-submission" class="hash-link" aria-label="Direct link to Report Submission" title="Direct link to Report Submission" translate="no">​</a></h3>
+<ul>
+<li class="">System design and architecture overview</li>
+<li class="">Implementation challenges and solutions</li>
+<li class="">Performance analysis and optimization results</li>
+<li class="">Lessons learned and recommendations</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="demonstration">Demonstration<a href="#demonstration" class="hash-link" aria-label="Direct link to Demonstration" title="Direct link to Demonstration" translate="no">​</a></h3>
+<ul>
+<li class="">Video showing the complete integrated system in operation</li>
+<li class="">Demonstration of fallback and recovery procedures</li>
+<li class="">Performance validation results</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="assessment-rubric">Assessment Rubric<a href="#assessment-rubric" class="hash-link" aria-label="Direct link to Assessment Rubric" title="Direct link to Assessment Rubric" translate="no">​</a></h2>
+<table><thead><tr><th>Component</th><th>Points</th><th>Criteria</th></tr></thead><tbody><tr><td>System Integration</td><td>40</td><td>All components work together seamlessly</td></tr><tr><td>Advanced Features</td><td>30</td><td>Sensor fusion and control implemented correctly</td></tr><tr><td>Fallback &amp; Recovery</td><td>20</td><td>System handles failures gracefully</td></tr><tr><td>Validation &amp; Docs</td><td>10</td><td>Requirements met and well documented</td></tr><tr><td><strong>Total</strong></td><td><strong>100</strong></td><td></td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bonus-points-up-to-15">Bonus Points (up to 15)<a href="#bonus-points-up-to-15" class="hash-link" aria-label="Direct link to Bonus Points (up to 15)" title="Direct link to Bonus Points (up to 15)" translate="no">​</a></h3>
+<ul>
+<li class="">Advanced features implementation</li>
+<li class="">Performance optimization</li>
+<li class="">Additional capabilities</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resources-and-references">Resources and References<a href="#resources-and-references" class="hash-link" aria-label="Direct link to Resources and References" title="Direct link to Resources and References" translate="no">​</a></h2>
+<ul>
+<li class="">Module 1: Gazebo Physics Simulation fundamentals</li>
+<li class="">Module 2: Unity Visualization techniques</li>
+<li class="">Module 3: Sensor simulation and integration</li>
+<li class="">ROS 2 documentation for communication</li>
+<li class="">Performance optimization guides</li>
+<li class="">Troubleshooting documentation</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="hints-and-tips">Hints and Tips<a href="#hints-and-tips" class="hash-link" aria-label="Direct link to Hints and Tips" title="Direct link to Hints and Tips" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Start Simple</strong>: Begin with basic robot and single sensor before adding complexity</li>
+<li class=""><strong>Test Incrementally</strong>: Validate each component before full integration</li>
+<li class=""><strong>Monitor Performance</strong>: Use ROS 2 tools to identify bottlenecks</li>
+<li class=""><strong>Document Issues</strong>: Keep track of problems and solutions</li>
+<li class=""><strong>Plan for Fallbacks</strong>: Design fallback mechanisms from the start</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusion">Conclusion<a href="#conclusion" class="hash-link" aria-label="Direct link to Conclusion" title="Direct link to Conclusion" translate="no">​</a></h2>
+<p>This capstone exercise integrates all the concepts learned in the digital twin modules. Successfully completing this exercise demonstrates mastery of the complete digital twin concept, from physics simulation through visualization and real-time integration. The skills developed will be applicable to real-world digital twin implementations in robotics and other domains.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/physical-ai-humanoid-robotics-book/physical-ai-humanoid-robotics-book/tree/main/Physical-AI-Humanoid-Robotics-book/docs/docs/module-3-digital-twin/capstone-exercise.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#objective" class="table-of-contents__link toc-highlight">Objective</a></li><li><a href="#background" class="table-of-contents__link toc-highlight">Background</a></li><li><a href="#exercise-components" class="table-of-contents__link toc-highlight">Exercise Components</a><ul><li><a href="#part-1-system-integration-40-points" class="table-of-contents__link toc-highlight">Part 1: System Integration (40 points)</a></li><li><a href="#part-2-advanced-features-30-points" class="table-of-contents__link toc-highlight">Part 2: Advanced Features (30 points)</a></li><li><a href="#part-3-fallback-and-recovery-20-points" class="table-of-contents__link toc-highlight">Part 3: Fallback and Recovery (20 points)</a></li><li><a href="#part-4-documentation-and-validation-10-points" class="table-of-contents__link toc-highlight">Part 4: Documentation and Validation (10 points)</a></li></ul></li><li><a href="#implementation-steps" class="table-of-contents__link toc-highlight">Implementation Steps</a><ul><li><a href="#step-1-environment-setup" class="table-of-contents__link toc-highlight">Step 1: Environment Setup</a></li><li><a href="#step-2-data-synchronization" class="table-of-contents__link toc-highlight">Step 2: Data Synchronization</a></li><li><a href="#step-3-advanced-integration" class="table-of-contents__link toc-highlight">Step 3: Advanced Integration</a></li><li><a href="#step-4-validation-and-testing" class="table-of-contents__link toc-highlight">Step 4: Validation and Testing</a></li></ul></li><li><a href="#validation-criteria" class="table-of-contents__link toc-highlight">Validation Criteria</a><ul><li><a href="#technical-requirements" class="table-of-contents__link toc-highlight">Technical Requirements</a></li><li><a href="#performance-targets" class="table-of-contents__link toc-highlight">Performance Targets</a></li><li><a href="#quality-assurance" class="table-of-contents__link toc-highlight">Quality Assurance</a></li></ul></li><li><a href="#deliverables" class="table-of-contents__link toc-highlight">Deliverables</a><ul><li><a href="#required" class="table-of-contents__link toc-highlight">Required</a></li><li><a href="#optional-bonus-up-to-15-points" class="table-of-contents__link toc-highlight">Optional (Bonus: up to 15 points)</a></li></ul></li><li><a href="#submission-requirements" class="table-of-contents__link toc-highlight">Submission Requirements</a><ul><li><a href="#code-submission" class="table-of-contents__link toc-highlight">Code Submission</a></li><li><a href="#report-submission" class="table-of-contents__link toc-highlight">Report Submission</a></li><li><a href="#demonstration" class="table-of-contents__link toc-highlight">Demonstration</a></li></ul></li><li><a href="#assessment-rubric" class="table-of-contents__link toc-highlight">Assessment Rubric</a><ul><li><a href="#bonus-points-up-to-15" class="table-of-contents__link toc-highlight">Bonus Points (up to 15)</a></li></ul></li><li><a href="#resources-and-references" class="table-of-contents__link toc-highlight">Resources and References</a></li><li><a href="#hints-and-tips" class="table-of-contents__link toc-highlight">Hints and Tips</a></li><li><a href="#conclusion" class="table-of-contents__link toc-highlight">Conclusion</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Book Sections</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Introduction</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/fundamentals/kinematics">Fundamentals</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/ros2/architecture">ROS 2</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/simulation/gazebo">Simulation</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/module-3-digital-twin/chapter-1-gazebo-physics">Digital Twin</a></li><li class="footer__item"><a class="footer__link-item" href="/docs/vla/introduction">VLA Models</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/physical-ai-humanoid-robotics-book/physical-ai-humanoid-robotics-book" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer" class="footer__link-item">Docusaurus<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-bookk" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 Physical AI Humanoid Robotics Book. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
