@@ -1,0 +1,31 @@
+# Digital Twin Configuration
+# Configuration parameters for Gazebo-Unity integration via ROS 2
+
+digital_twin_examples:
+  ros__parameters:
+    # Physics simulation parameters
+    physics_update_rate: 100.0  # Hz
+    gravity_x: 0.0
+    gravity_y: 0.0
+    gravity_z: -9.81
+
+    # Unity visualization parameters
+    unity_update_rate: 60.0  # Hz (target FPS)
+    unity_response_threshold: 0.1  # 100ms threshold
+
+    # Sensor simulation parameters
+    lidar_update_rate: 10.0  # Hz
+    camera_update_rate: 30.0  # Hz
+    imu_update_rate: 100.0  # Hz
+
+    # Performance targets
+    target_physics_response: 0.05  # 50ms
+    target_unity_response: 0.1     # 100ms
+
+    # Robot model parameters
+    robot_name: "basic_humanoid"
+    robot_namespace: "/digital_twin"
+
+    # Communication parameters
+    ros_bridge_timeout: 5.0  # seconds
+    connection_retry_attempts: 3

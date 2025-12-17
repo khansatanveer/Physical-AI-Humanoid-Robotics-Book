@@ -1,0 +1,20 @@
+/**:
+  ros__parameters:
+    # Physics simulation parameters
+    gravity_x: 0.0
+    gravity_y: 0.0
+    gravity_z: -9.81
+    simulation_rate: 1000
+    physics_step_size: 0.001
+
+    # Performance targets
+    unity_response_time_ms: 100
+    gazebo_update_rate_hz: 50
+
+    # Sensor simulation parameters
+    sensor_noise_level: 0.01
+    sensor_update_frequency: 30.0
+
+    # Integration parameters
+    gazebo_unity_sync_rate: 60.0
+    unity_integration_enabled: false

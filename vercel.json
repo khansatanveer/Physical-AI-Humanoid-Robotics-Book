@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "builds": [{
+        "src": "Physical-AI-Humanoid-Robotics-book/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+            "distDir": "Physical-AI-Humanoid-Robotics-book/build"
+        }
+    }],
+    "routes": [
+        { "src": "/(.*)", "dest": "/$1" }
+    ]
+
+}
