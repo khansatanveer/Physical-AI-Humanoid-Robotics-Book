@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Docusaurus RAG Chatbot API
+  version: 1.0.0
+  description: API for the Docusaurus Embedded RAG Chatbot
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://api.example.com
+    description: Production server
+
+paths:
+  /query:
+    post:
+      summary: Query the RAG system with global context
+      description: Ask a question that will be answered based on the entire documentation set
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlobalQueryRequest'
+      responses:
+        '200':
+          description: Query processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query parameters
+        '500':
+          description: Internal server error
+
+  /query/selection:
+    post:
+      summary: Query the RAG system with selected text context only
+      description: Ask a question that will be answered based only on the provided selected text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectionQueryRequest'
+      responses:
+        '200':
+          description: Query processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid query parameters or selected text too long
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    GlobalQueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          maxLength: 2000
+          description: The user's question
+        user_id:
+          type: string
+          description: Optional user identifier for tracking
+        session_id:
+          type: string
+          description: Optional session identifier
+
+    SelectionQueryRequest:
+      type: object
+      required:
+        - query
+        - selected_text
+      properties:
+        query:
+          type: string
+          maxLength: 2000
+          description: The user's question
+        selected_text:
+          type: string
+          maxLength: 5000
+          description: The text selected by the user
+        user_id:
+          type: string
+          description: Optional user identifier for tracking
+        session_id:
+          type: string
+          description: Optional session identifier
+
+    QueryResponse:
+      type: object
+      required:
+        - query_id
+        - answer
+        - sources
+        - timestamp
+      properties:
+        query_id:
+          type: string
+          description: Unique identifier for this query
+        answer:
+          type: string
+          description: The AI-generated answer to the question
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+          description: List of sources used to generate the answer
+        timestamp:
+          type: string
+          format: date-time
+          description: When the response was generated
+        processing_time:
+          type: number
+          format: float
+          description: Time taken to process the query in seconds
+
+    Source:
+      type: object
+      required:
+        - document_id
+        - section_title
+        - content_snippet
+      properties:
+        document_id:
+          type: string
+          description: Unique identifier of the source document
+        section_title:
+          type: string
+          description: Title of the section where the information was found
+        content_snippet:
+          type: string
+          description: Relevant snippet from the source
+        similarity_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Similarity score between the query and the source (optional)

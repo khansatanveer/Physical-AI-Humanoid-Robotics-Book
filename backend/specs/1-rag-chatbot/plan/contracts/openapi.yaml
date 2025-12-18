@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  description: API for the Integrated RAG Chatbot for Docusaurus Technical Book
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Development server
+  - url: https://api.example.com
+    description: Production server
+
+paths:
+  /ingest:
+    post:
+      summary: Ingest book content for indexing
+      description: Index book content with metadata for RAG retrieval
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestRequest'
+      responses:
+        '200':
+          description: Content successfully indexed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '400':
+          description: Invalid request data
+        '500':
+          description: Internal server error
+
+  /query:
+    post:
+      summary: Query book content with global RAG
+      description: Ask questions about book content with global knowledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/QueryRequest'
+      responses:
+        '200':
+          description: Query response with source attribution
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid request data
+        '404':
+          description: No relevant content found
+        '500':
+          description: Internal server error
+
+  /query/selection:
+    post:
+      summary: Query using selected text only
+      description: Ask questions about user-selected text only, bypassing global knowledge
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectionQueryRequest'
+      responses:
+        '200':
+          description: Query response from selected text only
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+        '400':
+          description: Invalid request data
+        '404':
+          description: Answer not present in selected text
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    IngestRequest:
+      type: object
+      required:
+        - content
+        - metadata
+      properties:
+        content:
+          type: string
+          description: The content to be indexed
+          example: "Chapter 1: Introduction to AI concepts..."
+        metadata:
+          type: object
+          required:
+            - module
+            - chapter
+            - section
+            - source_url
+          properties:
+            module:
+              type: string
+              description: Module name
+              example: "Foundations"
+            chapter:
+              type: string
+              description: Chapter name
+              example: "Introduction"
+            section:
+              type: string
+              description: Section name
+              example: "What is AI?"
+            heading_path:
+              type: string
+              description: Full heading hierarchy
+              example: "Part 1 > Foundations > Introduction > What is AI?"
+            source_url:
+              type: string
+              description: URL to the original content
+              example: "/docs/part1/foundations/introduction"
+
+    IngestResponse:
+      type: object
+      required:
+        - status
+        - indexed_chunks
+      properties:
+        status:
+          type: string
+          enum: [success, partial, error]
+          example: "success"
+        indexed_chunks:
+          type: integer
+          description: Number of content chunks indexed
+          example: 15
+        message:
+          type: string
+          description: Additional information about the indexing process
+          example: "Content successfully indexed with 15 chunks"
+
+    QueryRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The question to ask about the book content
+          example: "What are the key principles of AI safety?"
+        context_mode:
+          type: string
+          enum: [global]
+          default: "global"
+          description: Query context mode (global for this endpoint)
+
+    SelectionQueryRequest:
+      type: object
+      required:
+        - query
+        - selected_text
+      properties:
+        query:
+          type: string
+          description: The question to ask about the selected text
+          example: "What does this section say about AI safety?"
+        selected_text:
+          type: string
+          description: The user-selected text to query against
+          example: "AI safety principles include transparency, accountability, and robustness..."
+        context_mode:
+          type: string
+          enum: [selection]
+          default: "selection"
+          description: Query context mode (selection for this endpoint)
+
+    QueryResponse:
+      type: object
+      required:
+        - response
+        - sources
+        - confidence
+      properties:
+        response:
+          type: string
+          description: The generated response to the query
+          example: "According to the book, the key principles of AI safety are transparency, accountability, and robustness..."
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/SourceReference'
+          description: References to the book sections used in the response
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Confidence level in the response
+          example: 0.85
+        status:
+          type: string
+          enum: [success, no_content, partial]
+          description: Status of the query processing
+          example: "success"
+
+    SourceReference:
+      type: object
+      properties:
+        module:
+          type: string
+          description: Module name
+          example: "Advanced Concepts"
+        chapter:
+          type: string
+          description: Chapter name
+          example: "AI Safety"
+        section:
+          type: string
+          description: Section name
+          example: "Key Principles"
+        heading_path:
+          type: string
+          description: Full heading hierarchy
+          example: "Part 2 > Advanced Concepts > AI Safety > Key Principles"
+        source_url:
+          type: string
+          description: URL to the original content
+          example: "/docs/part2/advanced-concepts/ai-safety"
+        text_preview:
+          type: string
+          description: Preview of the source text used
+          example: "The three key principles of AI safety are transparency, accountability, and robustness..."
