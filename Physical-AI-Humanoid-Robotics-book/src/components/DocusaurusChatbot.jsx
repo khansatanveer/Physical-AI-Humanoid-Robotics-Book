@@ -344,8 +344,122 @@ const DocusaurusChatbot = () => {
           isChatOpen = false;
         };
 
-        // For now, we'll just show a demo interface. In a real implementation,
-        // you would integrate with the React components here.
+        // Add mode selection functionality
+        const globalBtn = document.getElementById('mode-global');
+        const selectionBtn = document.getElementById('mode-selection');
+
+        globalBtn.onclick = () => {
+          globalBtn.classList.add('active');
+          selectionBtn.classList.remove('active');
+        };
+
+        selectionBtn.onclick = () => {
+          selectionBtn.classList.add('active');
+          globalBtn.classList.remove('active');
+        };
+
+        // Add form submission functionality
+        const form = document.getElementById('chatbot-form');
+        const input = document.getElementById('chatbot-input');
+
+        form.onsubmit = async (e) => {
+          e.preventDefault();
+          const query = input.value.trim();
+          if (!query) return;
+
+          // Add user message to chat
+          const userMessage = document.createElement('div');
+          userMessage.className = 'chat-message message-user';
+          userMessage.innerHTML = `
+            <div class="message-content">${query}</div>
+          `;
+          document.getElementById('chatbot-history').appendChild(userMessage);
+
+          // Clear input
+          input.value = '';
+
+          // Show loading indicator
+          const loadingIndicator = document.createElement('div');
+          loadingIndicator.className = 'chat-message message-assistant';
+          loadingIndicator.innerHTML = `
+            <div class="loading-indicator">Thinking...</div>
+          `;
+          document.getElementById('chatbot-history').appendChild(loadingIndicator);
+
+          // Scroll to bottom
+          chatContainer.querySelector('.chat-history').scrollTop = chatContainer.querySelector('.chat-history').scrollHeight;
+
+          try {
+            // Determine API base URL based on the current environment
+            const currentOrigin = window.location.origin;
+            let API_BASE_URL;
+
+            if (currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1')) {
+              // Local development
+              API_BASE_URL = 'http://localhost:8000';
+            } else if (currentOrigin.includes('vercel.app')) {
+              // Production on Vercel - replace with your actual backend URL
+              API_BASE_URL = 'https://khansatanveer-deploy-chatbot.hf.space'; // Hugging Face Space
+            } else if (currentOrigin.includes('khansatanveer-deploy-chatbot.hf.space')) {
+              // If accessed directly from the Hugging Face Space
+              API_BASE_URL = 'https://khansatanveer-deploy-chatbot.hf.space';
+            } else {
+              // Default fallback
+              API_BASE_URL = 'https://khansatanveer-deploy-chatbot.hf.space'; // Use Hugging Face Space as default
+            }
+
+            // Make API call to the backend
+            const response = await fetch(`${API_BASE_URL}/chat`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                query: query,
+                session_id: 'session-' + Date.now()
+              })
+            });
+
+            const data = await response.json();
+
+            // Remove loading indicator
+            loadingIndicator.remove();
+
+            // Safely get response content
+            const responseContent = data.response || data.answer || 'No response received';
+
+            // Safely get source chunks
+            const sourceChunks = data.source_chunks || data.sources || [];
+
+            // Add assistant message to chat
+            const assistantMessage = document.createElement('div');
+            assistantMessage.className = 'chat-message message-assistant';
+            assistantMessage.innerHTML = `
+              <div class="message-content">${responseContent}</div>
+              ${sourceChunks && sourceChunks.length > 0 ? `
+                <div class="sources-container">
+                  <div class="source-item">
+                    <div class="source-title">Sources (${sourceChunks.length})</div>
+                    <div class="source-content">${sourceChunks[0].content ? sourceChunks[0].content.substring(0, 100) : 'Content not available'}...</div>
+                  </div>
+                </div>
+              ` : ''}
+            `;
+            document.getElementById('chatbot-history').appendChild(assistantMessage);
+          } catch (error) {
+            // Remove loading indicator
+            loadingIndicator.remove();
+
+            // Add error message
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = 'Error: Could not get response from AI assistant. Please make sure the backend server is running.';
+            document.getElementById('chatbot-history').appendChild(errorMessage);
+          }
+
+          // Scroll to bottom
+          chatContainer.querySelector('.chat-history').scrollTop = chatContainer.querySelector('.chat-history').scrollHeight;
+        };
 
         // Update button text to show it's active
         button.style.transform = 'scale(0.95)';

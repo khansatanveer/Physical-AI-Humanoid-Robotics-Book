@@ -1,118 +1,100 @@
 // chatbot/hooks/useChat.js
 import { useState, useCallback } from 'react';
-import { queryGlobal, querySelection, validateQuery, validateSelectedText } from '../services/apiClient';
+import {
+    queryGlobal,
+    querySelection,
+    validateQuery,
+    validateSelectedText,
+} from '../services/apiClient';
 
 const useChat = () => {
-  const [messages, setMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [currentMode, setCurrentMode] = useState('global'); // 'global' or 'selection'
-  const [selectedText, setSelectedText] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [currentMode, setCurrentMode] = useState('global');
+    const [selectedText, setSelectedText] = useState('');
 
-  // Add a message to the chat history
-  const addMessage = useCallback((message) => {
-    setMessages(prevMessages => [...prevMessages, message]);
-  }, []);
+    const addMessage = useCallback((message) => {
+        setMessages((prev) => [...prev, message]);
+    }, []);
 
-  // Clear the chat history
-  const clearChat = useCallback(() => {
-    setMessages([]);
-    setError(null);
-  }, []);
+    const processQuery = useCallback(
+        async(query) => {
+            try {
+                validateQuery(query);
 
-  // Process a query based on the current mode
-  const processQuery = useCallback(async (query) => {
-    try {
-      // Validate the query
-      validateQuery(query);
+                // USER MESSAGE
+                addMessage({
+                    id: Date.now().toString(),
+                    role: 'user',
+                    content: query,
+                    timestamp: new Date().toISOString(),
+                });
 
-      // Add user message to chat history
-      const userMessage = {
-        id: Date.now().toString(),
-        role: 'user',
-        content: query,
-        timestamp: new Date().toISOString(),
-        status: 'pending',
-      };
+                setIsLoading(true);
+                setError(null);
 
-      addMessage(userMessage);
+                let response;
 
-      setIsLoading(true);
-      setError(null);
+                if (currentMode === 'global') {
+                    response = await queryGlobal({
+                        query,
+                        session_id: `session-${Date.now()}`,
+                    });
+                } else {
+                    validateSelectedText(selectedText);
+                    response = await querySelection({
+                        query,
+                        selected_text: selectedText,
+                        session_id: `session-${Date.now()}`,
+                    });
+                }
 
-      let response;
-      if (currentMode === 'global') {
-        response = await queryGlobal({
-          query: query,
-          session_id: 'session-' + Date.now(),
-        });
-      } else if (currentMode === 'selection' && selectedText) {
-        validateSelectedText(selectedText);
-        response = await querySelection({
-          query: query,
-          selected_text: selectedText,
-          session_id: 'session-' + Date.now(),
-        });
-      } else if (currentMode === 'selection' && !selectedText) {
-        throw new Error('No text selected for selection mode. Please select text on the page first.');
-      } else {
-        throw new Error('Invalid query mode');
-      }
+                // ✅ ASSISTANT MESSAGE (FIXED)
+                addMessage({
+                    id: Date.now().toString(),
+                    role: 'assistant',
+                    content: response.response, // Now correctly maps to response from API client
+                    sources: response.sources || [],
+                    confidence: response.confidence,
+                    timestamp: new Date().toISOString(),
+                });
+            } catch (err) {
+                console.error(err);
+                setError(err.message || 'Chat error');
 
-      // Add assistant response to chat history
-      const assistantMessage = {
-        id: response.query_id || Date.now().toString(),
-        role: 'assistant',
-        content: response.answer,
-        sources: response.sources || [],
-        timestamp: response.timestamp || new Date().toISOString(),
-        status: 'success',
-      };
+                addMessage({
+                    id: Date.now().toString(),
+                    role: 'assistant',
+                    content: '❌ Something went wrong. Please try again.',
+                    timestamp: new Date().toISOString(),
+                });
+            } finally {
+                setIsLoading(false);
+            }
+        }, [currentMode, selectedText, addMessage]
+    );
 
-      addMessage(assistantMessage);
-    } catch (err) {
-      console.error('Chat query error:', err);
-      setError(err.message || 'An error occurred while processing your query');
+    const setMode = useCallback((mode) => {
+        if (mode === 'global' || mode === 'selection') {
+            setCurrentMode(mode);
+        }
+    }, []);
 
-      // Add error message to chat history
-      const errorMessage = {
-        id: Date.now().toString(),
-        role: 'assistant',
-        content: query || 'Previous query',
-        timestamp: new Date().toISOString(),
-        status: 'error',
-      };
+    const updateSelectedText = useCallback((text) => {
+        setSelectedText(text);
+    }, []);
 
-      addMessage(errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentMode, selectedText, addMessage]);
-
-  // Set the current query mode
-  const setMode = useCallback((mode) => {
-    if (mode === 'global' || mode === 'selection') {
-      setCurrentMode(mode);
-    }
-  }, []);
-
-  // Update selected text
-  const updateSelectedText = useCallback((text) => {
-    setSelectedText(text);
-  }, []);
-
-  return {
-    messages,
-    isLoading,
-    error,
-    currentMode,
-    selectedText,
-    processQuery,
-    addMessage,
-    clearChat,
-    setMode,
-    updateSelectedText,
-  };
+    return {
+        messages,
+        isLoading,
+        error,
+        currentMode,
+        selectedText,
+        processQuery,
+        setMode,
+        updateSelectedText,
+    };
 };
 
 export default useChat;

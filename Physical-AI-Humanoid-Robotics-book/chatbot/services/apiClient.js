@@ -1,83 +1,83 @@
 // chatbot/services/apiClient.js
 import axios from 'axios';
 
-// Load API configuration from environment variables
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
-const API_TIMEOUT = parseInt(process.env.REACT_APP_API_TIMEOUT) || 30000;
+// Load API configuration
+const API_BASE_URL =
+    typeof window !== 'undefined'
+        ? (process.env.REACT_APP_API_BASE_URL ||
+           window.ENV?.REACT_APP_API_BASE_URL ||
+           'http://localhost:8000')
+        : process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
+const API_TIMEOUT =
+    parseInt(process.env.REACT_APP_API_TIMEOUT, 10) || 30000;
 
-// Create axios instance with default configuration
+// Axios instance
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: API_TIMEOUT,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+    baseURL: API_BASE_URL,
+    timeout: API_TIMEOUT,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
-// Global query function
-export const queryGlobal = async (request) => {
-  try {
-    const response = await apiClient.post('/query', {
-      query: request.query,
-      user_id: request.user_id,
-      session_id: request.session_id,
+// ✅ Global query - uses the RAG backend /chat endpoint
+export const queryGlobal = async({ query, session_id }) => {
+    const res = await apiClient.post('/chat', {
+        query,
+        session_id,
     });
 
-    return response.data;
-  } catch (error) {
-    console.error('Error in global query:', error);
-    throw error;
-  }
+    // 🔑 NORMALIZED RESPONSE (useChat expects this format)
+    return {
+        response: res.data.response,
+        sources: res.data.source_chunks || [], // Map source_chunks to sources
+        confidence: res.data.confidence,
+        status: 'success', // Add status since backend doesn't return it
+        query_id: res.data.query_id,
+        timestamp: res.data.timestamp,
+    };
 };
 
-// Selection query function
-export const querySelection = async (request) => {
-  try {
-    const response = await apiClient.post('/query/selection', {
-      query: request.query,
-      selected_text: request.selected_text,
-      user_id: request.user_id,
-      session_id: request.session_id,
+// ✅ Selection query - for context around selected text
+export const querySelection = async({
+    query,
+    selected_text,
+    session_id,
+}) => {
+    // For selection mode, we'll send the selected text as additional context
+    // The backend can use this to focus on relevant sections
+    const res = await apiClient.post('/chat', {
+        query: `${query} (Context: ${selected_text.substring(0, 500)})`, // Add selected text as context
+        session_id,
     });
 
-    return response.data;
-  } catch (error) {
-    console.error('Error in selection query:', error);
-    throw error;
-  }
+    return {
+        response: res.data.response,
+        sources: res.data.source_chunks || [], // Map source_chunks to sources
+        confidence: res.data.confidence,
+        status: 'success', // Add status since backend doesn't return it
+        query_id: res.data.query_id,
+        timestamp: res.data.timestamp,
+    };
 };
 
-// Validation functions
+// Validation
 export const validateQuery = (query) => {
-  if (!query || typeof query !== 'string') {
-    throw new Error('Query is required and must be a string');
-  }
-
-  if (query.trim().length < 1) {
-    throw new Error('Query must not be empty');
-  }
-
-  if (query.length > 2000) {
-    throw new Error('Query must be 2000 characters or less');
-  }
-
-  return true;
+    if (!query || typeof query !== 'string')
+        throw new Error('Query must be a string');
+    if (query.length > 2000)
+        throw new Error('Query cannot exceed 2000 characters');
 };
 
-export const validateSelectedText = (selectedText) => {
-  if (!selectedText || typeof selectedText !== 'string') {
-    throw new Error('Selected text is required and must be a string');
-  }
-
-  if (selectedText.length > 5000) {
-    throw new Error('Selected text must be 5000 characters or less');
-  }
-
-  return true;
+export const validateSelectedText = (text) => {
+    if (!text || typeof text !== 'string')
+        throw new Error('Selected text must be a string');
+    if (text.length > 5000)
+        throw new Error('Selected text too long');
 };
 
-// Export API configuration for use in other modules
+// Config export
 export const getApiConfig = () => ({
-  baseUrl: API_BASE_URL,
-  timeout: API_TIMEOUT,
+    baseUrl: API_BASE_URL,
+    timeout: API_TIMEOUT,
 });

@@ -1,0 +1,87 @@
+# API Contract: Book Embeddings Pipeline
+
+## Ingestion Service Contract
+
+### Configuration Endpoints
+
+```
+POST /config
+```
+**Purpose**: Configure the ingestion pipeline with book website URL and processing options
+
+**Request Body**:
+```json
+{
+  "book_website_url": "https://example-book.com",
+  "chunk_size": 1000,
+  "overlap_size": 100,
+  "include_metadata": true
+}
+```
+
+**Response**:
+```json
+{
+  "status": "configured",
+  "config_id": "uuid-string"
+}
+```
+
+### Execution Endpoints
+
+```
+POST /execute
+```
+**Purpose**: Execute the full ingestion pipeline
+
+**Request Body**:
+```json
+{
+  "config_id": "uuid-string"
+}
+```
+
+**Response**:
+```json
+{
+  "execution_id": "uuid-string",
+  "status": "started",
+  "estimated_completion": "ISO8601-timestamp"
+}
+```
+
+```
+GET /status/{execution_id}
+```
+**Purpose**: Check the status of a pipeline execution
+
+**Response**:
+```json
+{
+  "execution_id": "uuid-string",
+  "status": "running|completed|failed",
+  "progress": {
+    "crawled_pages": 45,
+    "processed_chunks": 120,
+    "stored_embeddings": 118
+  },
+  "started_at": "ISO8601-timestamp",
+  "completed_at": "ISO8601-timestamp|null"
+}
+```
+
+## Data Contract
+
+### Input Schema
+- `book_website_url`: Valid HTTPS URL to crawl
+- `chunk_size`: Integer between 500-2000 (default: 1000)
+- `overlap_size`: Integer between 0-500 (default: 100)
+- `include_metadata`: Boolean (default: true)
+
+### Output Schema
+- Embeddings stored in Qdrant with payload containing:
+  - `url`: Source URL
+  - `title`: Page title
+  - `headings`: Array of headings
+  - `content`: Text content
+  - `metadata`: Additional metadata

@@ -55,6 +55,43 @@ The book is organized into the following sections:
 - Projects and practical applications
 - Advanced topics and future directions
 
+## Retrieval Pipeline
+
+This project includes a semantic search retrieval pipeline that allows users to query the book content using natural language. The pipeline uses vector embeddings to find semantically similar content from the book.
+
+### Features
+- Semantic similarity search using Cohere embeddings
+- Vector storage in Qdrant cloud database
+- Command-line interface for querying
+- Performance and consistency testing
+- Validation against known queries
+
+### Usage
+```bash
+# Basic query with default top-5 results
+python retrieve.py --query "What is physical AI?"
+
+# Query with custom number of results
+python retrieve.py --query "humanoid robot control systems" --top-k 10
+
+# Query with validation
+python retrieve.py --query "neural networks in robotics" --top-k 3 --validate
+
+# Performance testing across multiple query types
+python retrieve.py --query "test" --performance-test
+
+# Consistency testing with repeated queries
+python retrieve.py --query "What is physical AI?" --consistency-test
+```
+
+### Setup
+1. Install dependencies: `pip install -r requirements.txt`
+2. Set up environment variables in `.env` file:
+   - `COHERE_API_KEY`: Your Cohere API key
+   - `QDRANT_URL`: Your Qdrant Cloud URL
+   - `QDRANT_API_KEY`: Your Qdrant API key
+   - `QDRANT_COLLECTION_NAME`: Collection name (default: book_embeddings)
+
 ## Contributing
 
 We welcome contributions to improve this educational resource. Please feel free to submit issues or pull requests to enhance the content, examples, or interactive elements.

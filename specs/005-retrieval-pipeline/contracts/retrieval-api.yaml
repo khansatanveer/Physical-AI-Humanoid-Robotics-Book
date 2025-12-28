@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Book Content Retrieval API
+  description: API for retrieving relevant book content chunks using semantic similarity search
+  version: 1.0.0
+paths:
+  /retrieve:
+    post:
+      summary: Retrieve relevant content chunks for a query
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  description: The text query to search for
+                  example: "What is physical AI?"
+                top_k:
+                  type: integer
+                  description: Number of top results to return
+                  default: 5
+                  minimum: 1
+                  maximum: 100
+                validate:
+                  type: boolean
+                  description: Whether to run validation against known queries
+                  default: false
+      responses:
+        '200':
+          description: Successful retrieval of relevant content chunks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query:
+                    type: string
+                    description: The original query text
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Unique identifier for the chunk
+                        score:
+                          type: number
+                          format: float
+                          description: Similarity score between 0 and 1
+                        content:
+                          type: string
+                          description: The content text
+                        url:
+                          type: string
+                          description: Source URL of the content
+                        title:
+                          type: string
+                          description: Title of the source document
+                        headings:
+                          type: array
+                          items:
+                            type: string
+                          description: Headings associated with the content
+                        metadata:
+                          type: object
+                          description: Additional metadata
+                  metrics:
+                    type: object
+                    properties:
+                      retrieval_time:
+                        type: number
+                        format: float
+                        description: Time taken for retrieval in seconds
+                      total_results:
+                        type: integer
+                        description: Total number of results returned
+        '400':
+          description: Invalid query parameters
+        '500':
+          description: Internal server error during retrieval

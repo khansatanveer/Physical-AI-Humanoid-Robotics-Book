@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "outputDirectory": "Physical-AI-Humanoid-Robotics-book/build",
     "builds": [{
         "src": "Physical-AI-Humanoid-Robotics-book/package.json",
         "use": "@vercel/static-build",

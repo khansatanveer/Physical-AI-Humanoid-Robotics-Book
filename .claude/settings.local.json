@@ -4,7 +4,8 @@
       "Bash(npm run build)",
       "Bash(powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
       "Bash(npm install --save-dev path-browserify os-browserify crypto-browserify stream-browserify util buffer process)",
-      "Bash(npm install --save-dev assert browserify-zlib constants-browserify dns-packet domain-browser events http-browserify https-browserify os-browserify path-browserify process punycode querystring-es3 stream-browserify string_decoder timers-browserify tty-browserify url util vm-browserify)"
+      "Bash(npm install --save-dev assert browserify-zlib constants-browserify dns-packet domain-browser events http-browserify https-browserify os-browserify path-browserify process punycode querystring-es3 stream-browserify string_decoder timers-browserify tty-browserify url util vm-browserify)",
+      "Bash(touch backend/__init__.py)"
     ],
     "deny": [],
     "ask": []

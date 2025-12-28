@@ -21,31 +21,20 @@ const ChatInterface = () => {
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const handleSubmit = async () => {
+    if (!inputValue.trim() || isLoading) return;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!inputValue.trim() || isLoading) {
-      return;
-    }
-
-    // Process the query
     await processQuery(inputValue.trim());
-
-    // Clear input after submission
     setInputValue('');
   };
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
+      e.preventDefault(); // 🚫 page reload stop
+      handleSubmit();
     }
   };
 
@@ -70,17 +59,11 @@ const ChatInterface = () => {
         {isLoading && (
           <div className="chat-message message-assistant">
             <span className="message-role">Assistant</span>
-            <div className="loading-indicator">
-              <div>Thinking...</div>
-            </div>
+            <div className="loading-indicator">Thinking...</div>
           </div>
         )}
 
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
         <div ref={messagesEndRef} />
       </div>
@@ -90,41 +73,44 @@ const ChatInterface = () => {
 
         {currentMode === 'selection' && currentSelectedText && (
           <div className="selected-text-indicator">
-            <strong>Selected text:</strong> {currentSelectedText.substring(0, 100)}{currentSelectedText.length > 100 ? '...' : ''}
+            <strong>Selected text:</strong>{' '}
+            {currentSelectedText.substring(0, 100)}
+            {currentSelectedText.length > 100 ? '...' : ''}
           </div>
         )}
 
-        <form className="chat-input-form" onSubmit={handleSubmit}>
+        {/* 🚫 FORM REMOVED – PAGE RELOAD FIX */}
+        <div className="chat-input-form">
           <textarea
             ref={inputRef}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={currentMode === 'selection' && currentSelectedText
-              ? "Ask a question about the selected text..."
-              : "Ask a question about the documentation..."}
+            placeholder={
+              currentMode === 'selection' && currentSelectedText
+                ? 'Ask a question about the selected text...'
+                : 'Ask a question about the documentation...'
+            }
             className="chat-input"
             rows={1}
             disabled={isLoading}
-            aria-label="Type your question here"
             maxLength={2000}
           />
+
           <button
-            type="submit"
+            type="button" // 🔑 VERY IMPORTANT
+            onClick={handleSubmit}
             disabled={!inputValue.trim() || isLoading}
             className="send-button"
-            aria-label="Send message"
           >
             {isLoading ? '...' : 'Send'}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
 };
 
-ChatInterface.propTypes = {
-  // No props needed for this component as it manages its own state
-};
+ChatInterface.propTypes = {};
 
 export default ChatInterface;
