@@ -9,18 +9,12 @@
       "src": "Physical-AI-Humanoid-Robotics-book/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "Physical-AI-Humanoid-Robotics-book/build"
       }
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/api.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/Physical-AI-Humanoid-Robotics-book/$1"
-    }
+    { "src": "/api/(.*)", "dest": "/backend/api.py" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
