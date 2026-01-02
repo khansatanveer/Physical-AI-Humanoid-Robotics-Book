@@ -88,7 +88,7 @@ const config: Config = {
           label: 'Book',
         },
         {
-          href: 'https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-book',
+          href: 'https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-Book',
           label: 'GitHub',
           position: 'right',
         },
@@ -137,7 +137,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/physical-ai-humanoid-robotics-book/physical-ai-humanoid-robotics-book',
+              href: 'https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-Book',
             },
             {
               label: 'Docusaurus',
@@ -150,7 +150,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-bookk',
+              href: 'https://github.com/khansatanveer/Physical-AI-Humanoid-Robotics-Book',
             },
           ],
         },
